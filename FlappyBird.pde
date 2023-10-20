@@ -1,4 +1,118 @@
 
+
+Menu menu = new Menu();
+
+Bird player = new Bird(50);
+//Tube tubo = new Tube(1280,800/2,0,100,10);
+
+ArrayList<Tube> tubos;
+float tuboWidth = 100;
+float tuboSpeed = 5;
+int distanciaEntreTubos = 200; // Distancia entre tubos en píxeles
+
+void setup() {
+  size(1280, 800);
+  frameRate(60);
+  player = new Bird(50);
+  tubos = new ArrayList<Tube>();
+  tubos.add(new Tube(width, random(100, height - distanciaEntreTubos - 100), random(100, 300), tuboWidth, tuboSpeed));
+}
+
+void draw() {
+  background(250);
+  player.BirdDraw();
+  player.PControl();
+  player.Golpe();
+
+  for (int i = tubos.size() - 1; i >= 0; i--) {
+    Tube tubo = tubos.get(i);
+    tubo.Draw();
+    tubo.Update();
+    if (tubo.IsOffScreen()) {
+      tubos.remove(i);
+    }
+  }
+
+  if (frameCount % 120 == 0) { // Agrega un nuevo tubo cada 2 segundos (60 fotogramas por segundo)
+    float topHeight = random(100, height - distanciaEntreTubos - 100);
+    float bottomHeight = random(100, 300);
+    tubos.add(new Tube(width, topHeight, bottomHeight, tuboWidth, tuboSpeed));
+  }
+}
+
+// Evento para el jugador
+void keyPressed() {
+  if (key == ' ') {
+    player.saltando = true;
+  }
+}
+
+void mousePressed() {
+  if (!menu.inGame) {
+    menu.handleMouseClick();
+  }
+}
+
+class Menu {
+  Button startButton, exitButton;
+  boolean inGame;
+
+  Menu() {
+    inGame = false;
+    startButton = new Button("Iniciar", width/2, height/2 - 30, 120, 40);
+    exitButton = new Button("Salir", width/2, height/2 + 30, 120, 40);
+  }
+
+  void display() {
+    if (!inGame) {
+      background(200);
+      textFont(createFont("Arial", 24));
+      textAlign(CENTER, CENTER);
+      startButton.display();
+      exitButton.display();
+    } else {
+      background(0);
+      fill(255);
+      textSize(24);
+      text("¡Juego en progreso!", width/2, height/2);
+    }
+  }
+
+  void handleMouseClick() {
+    if (startButton.isMouseOver()) {
+      inGame = true;
+    } else if (exitButton.isMouseOver()) {
+      exit();
+    }
+  }
+}
+
+class Button {
+  String label;
+  float x, y, w, h;
+
+  Button(String label, float x, float y, float w, float h) {
+    this.label = label;
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+  }
+
+  void display() {
+    fill(100);
+    rectMode(CENTER);
+    rect(x, y, w, h, 10);
+    fill(255);
+    textSize(18);
+    text(label, x, y);
+  }
+
+  boolean isMouseOver() {
+    return (mouseX > x - w/2 && mouseX < x + w/2 && mouseY > y - h/2 && mouseY < y + h/2);
+  }
+}
+
 class Transform {
   float x, y;
   float scaleX, scaleY;
@@ -127,50 +241,4 @@ class Tube extends Transform{
   boolean IsOffScreen() {
     return x + _width < 0;
   }  
-}
-
-
-Bird player = new Bird(50);
-//Tube tubo = new Tube(1280,800/2,0,100,10);
-
-ArrayList<Tube> tubos;
-float tuboWidth = 100;
-float tuboSpeed = 5;
-int distanciaEntreTubos = 200; // Distancia entre tubos en píxeles
-
-void setup() {
-  size(1280, 800);
-  frameRate(60);
-  player = new Bird(50);
-  tubos = new ArrayList<Tube>();
-  tubos.add(new Tube(width, random(100, height - distanciaEntreTubos - 100), random(100, 300), tuboWidth, tuboSpeed));
-}
-
-void draw() {
-  background(250);
-  player.BirdDraw();
-  player.PControl();
-  player.Golpe();
-
-  for (int i = tubos.size() - 1; i >= 0; i--) {
-    Tube tubo = tubos.get(i);
-    tubo.Draw();
-    tubo.Update();
-    if (tubo.IsOffScreen()) {
-      tubos.remove(i);
-    }
-  }
-
-  if (frameCount % 120 == 0) { // Agrega un nuevo tubo cada 2 segundos (60 fotogramas por segundo)
-    float topHeight = random(100, height - distanciaEntreTubos - 100);
-    float bottomHeight = random(100, 300);
-    tubos.add(new Tube(width, topHeight, bottomHeight, tuboWidth, tuboSpeed));
-  }
-}
-
-// Evento para el jugador
-void keyPressed() {
-  if (key == ' ') {
-    player.saltando = true;
-  }
 }
