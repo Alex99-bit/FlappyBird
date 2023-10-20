@@ -74,12 +74,12 @@ class Menu {
       textAlign(CENTER, CENTER);
       startButton.display();
       exitButton.display();
-    } else {
+    } /*else {
       background(0);
       fill(255);
       textSize(24);
       text("¡Juego en progreso!", width/2, height/2);
-    }
+    }*/
   }
 
   void handleMouseClick() {
