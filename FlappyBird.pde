@@ -11,8 +11,7 @@ float tuboSpeed = 5;
 int distanciaEntreTubos = 200; // Distancia entre tubos en píxeles
 
 void setup() {
-  //size(1280, 800);
-  size(400, 400);
+  size(1280, 800);
   frameRate(60);
   tubos = new ArrayList<Tube>();
   tubos.add(new Tube(width, random(100, height - distanciaEntreTubos - 100), random(100, 300), tuboWidth, tuboSpeed));
