@@ -11,33 +11,38 @@ float tuboSpeed = 5;
 int distanciaEntreTubos = 200; // Distancia entre tubos en píxeles
 
 void setup() {
-  size(1280, 800);
+  //size(1280, 800);
+  size(400, 400);
   frameRate(60);
-  player = new Bird(50);
   tubos = new ArrayList<Tube>();
   tubos.add(new Tube(width, random(100, height - distanciaEntreTubos - 100), random(100, 300), tuboWidth, tuboSpeed));
 }
 
 void draw() {
   background(250);
-  player.BirdDraw();
-  player.PControl();
-  player.Golpe();
-
-  for (int i = tubos.size() - 1; i >= 0; i--) {
-    Tube tubo = tubos.get(i);
-    tubo.Draw();
-    tubo.Update();
-    if (tubo.IsOffScreen()) {
-      tubos.remove(i);
+  if(menu.inGame){
+    player.BirdDraw();
+    player.PControl();
+    player.Golpe();
+  
+    for (int i = tubos.size() - 1; i >= 0; i--) {
+      Tube tubo = tubos.get(i);
+      tubo.Draw();
+      tubo.Update();
+      if (tubo.IsOffScreen()) {
+        tubos.remove(i);
+      }
     }
+  
+    if (frameCount % 120 == 0) { // Agrega un nuevo tubo cada 2 segundos (60 fotogramas por segundo)
+      float topHeight = random(100, height - distanciaEntreTubos - 100);
+      float bottomHeight = random(100, 300);
+      tubos.add(new Tube(width, topHeight, bottomHeight, tuboWidth, tuboSpeed));
+    }
+  }else{
+    menu.display();
   }
-
-  if (frameCount % 120 == 0) { // Agrega un nuevo tubo cada 2 segundos (60 fotogramas por segundo)
-    float topHeight = random(100, height - distanciaEntreTubos - 100);
-    float bottomHeight = random(100, 300);
-    tubos.add(new Tube(width, topHeight, bottomHeight, tuboWidth, tuboSpeed));
-  }
+  
 }
 
 // Evento para el jugador
