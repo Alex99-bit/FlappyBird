@@ -57,129 +57,18 @@ void mousePressed() {
   }
 }
 
-class Menu {
-  Button startButton, exitButton;
-  boolean inGame;
-
-  Menu() {
-    inGame = false;
-    startButton = new Button("Iniciar", width/2, height/2 - 30, 120, 40);
-    exitButton = new Button("Salir", width/2, height/2 + 30, 120, 40);
-  }
-
-  void display() {
-    if (!inGame) {
-      background(200);
-      textFont(createFont("Arial", 24));
-      textAlign(CENTER, CENTER);
-      startButton.display();
-      exitButton.display();
-    } /*else {
-      background(0);
-      fill(255);
-      textSize(24);
-      text("¡Juego en progreso!", width/2, height/2);
-    }*/
-  }
-
-  void handleMouseClick() {
-    if (startButton.isMouseOver()) {
-      inGame = true;
-    } else if (exitButton.isMouseOver()) {
-      exit();
-    }
-  }
-}
-
-class Button {
-  String label;
-  float x, y, w, h;
-
-  Button(String label, float x, float y, float w, float h) {
-    this.label = label;
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
-  }
-
-  void display() {
-    fill(100);
-    rectMode(CENTER);
-    rect(x, y, w, h, 10);
-    fill(255);
-    textSize(18);
-    text(label, x, y);
-  }
-
-  boolean isMouseOver() {
-    return (mouseX > x - w/2 && mouseX < x + w/2 && mouseY > y - h/2 && mouseY < y + h/2);
-  }
-}
-
-class Transform {
-  float x, y;
-  float scaleX, scaleY;
-  float radio;
-
-  Transform() {
-    this(0, 0, 1, 1, 0); // Llama al constructor con argumentos con valores predeterminados
-  }
-
-  Transform(float x, float y) {
-    this(x, y, 1, 1, 0); // Llama al constructor con argumentos con x, y y valores predeterminados para scaleX, scaleY y radio
-  }
-
-  Transform(float x, float y, float scaleX, float scaleY, float radio) {
-    this.x = x;
-    this.y = y;
-    this.scaleX = scaleX;
-    this.scaleY = scaleY;
-    this.radio = radio;
-  }
-}
-
-
-
-class RigidBody {
-  float gravity;
-  float mass;
-  float force;
-  float velocity;
-  float position;
-
-  RigidBody() {
-    gravity = 9.8;
-    mass = 1;
-    force = mass * gravity;
-    velocity = 0;
-    position = 0;
-  }
-
-  void applyForce(float f) {
-    force = f;
-  }
-
-  void update() {
-    float acceleration = force / mass;
-    velocity += acceleration;
-    position += velocity;
-  }
-}
-
 
 class Bird extends Transform {
-  RigidBody rb;
   int score;
   int colorBird;
-  float salto = -10;  
+  float salto = -8;  
   boolean saltando = false, vivo = true;
 
   Bird(float rad) {
-    super(100, height / 2);
-    rb = new RigidBody();
+    super(100, 800 / 2);
+    //rb = new RigidBody();
     radio = rad;
-    rb.gravity = 0;
+    gravity = 0;
     colorBird = #FF0000;
   }
 
@@ -191,11 +80,11 @@ class Bird extends Transform {
 
   void PControl() {
     if (saltando) {
-      rb.gravity = salto; // Establece la velocidad vertical en lugar de aplicar una fuerza
+      gravity = salto; // Establece la velocidad vertical en lugar de aplicar una fuerza
       saltando = false;
     }
-    rb.gravity += 0.5; // Gravedad
-    y += rb.gravity;
+    gravity += 0.5; // Gravedad
+    y += gravity;
   }
 
   void Golpe(Transform otro) {
