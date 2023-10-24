@@ -4,17 +4,17 @@ class Menu {
 
   Menu() {
     inGame = false;
-    startButton = new Button("Iniciar", 1280/2, 800/2 - 30, 120*4, 40*3.5);
-    exitButton = new Button("Salir", 1280/2, 800/2 + (30*6), 120*4, 40*3.5);
+    startButton = new Button("Iniciar", 1280/2, 800/2 - (30/6), 120*3, 40*3);
+    exitButton = new Button("Salir", 1280/2, 800/2 + (30*6), 120*2, 40*2);
     
     startButton.FillButton(#29E101);
     startButton.FillText(255);
-    startButton.SetTextSize(50);
+    startButton.SetTextSize(70);
     
     exitButton.FillButton(#E0DF00);
     exitButton.FillText(255);
-    exitButton.SetTextSize(40);
-  }
+    exitButton.SetTextSize(50);
+  } 
 
   void display() {
     if (!inGame) {

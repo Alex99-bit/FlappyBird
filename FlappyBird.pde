@@ -1,3 +1,8 @@
+/*
+  
+  Este es el codigo main para el juego flappy bird
+
+*/
 
 
 Menu menu = new Menu();
