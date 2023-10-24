@@ -10,8 +10,11 @@ float tuboWidth = 100;
 float tuboSpeed = 5;
 int distanciaEntreTubos = 200; // Distancia entre tubos en píxeles
 
+PImage fondo;
+
 void setup() {
   size(1280, 800);
+  fondo = loadImage("background.png");
   frameRate(60);
   tubos = new ArrayList<Tube>();
   tubos.add(new Tube(width, random(100, height - distanciaEntreTubos - 100), random(100, 300), tuboWidth, tuboSpeed));

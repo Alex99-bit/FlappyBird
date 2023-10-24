@@ -1,24 +1,24 @@
 class Menu {
   Button startButton, exitButton;
   boolean inGame;
-  PImage fondo;
-  
 
   Menu() {
     inGame = false;
-    fondo = loadImage("");
-    startButton = new Button("Iniciar", 1280/2, 800/2 - 30, 120*2, 40*2);
-    exitButton = new Button("Salir", 1280/2, 800/2 + 60, 120*2, 40*2);
+    startButton = new Button("Iniciar", 1280/2, 800/2 - 30, 120*4, 40*3.5);
+    exitButton = new Button("Salir", 1280/2, 800/2 + (30*6), 120*4, 40*3.5);
+    
     startButton.FillButton(#29E101);
-    startButton.FillText(0);
+    startButton.FillText(255);
+    startButton.SetTextSize(50);
     
     exitButton.FillButton(#E0DF00);
-    exitButton.FillText(0);
+    exitButton.FillText(255);
+    exitButton.SetTextSize(40);
   }
 
   void display() {
     if (!inGame) {
-      background(250);
+      background(fondo);
       textFont(createFont("Arial", 24));
       textAlign(CENTER, CENTER);
       startButton.display();
@@ -43,7 +43,7 @@ class Menu {
 class Button {
   String label;
   float x, y, w, h;
-  int rgbT,rgbB;
+  int rgbT,rgbB,textSize;
 
   Button(String label, float x, float y, float w, float h) {
     this.label = label;
@@ -53,14 +53,15 @@ class Button {
     this.h = h;
     rgbT = 255;
     rgbB = 100;
+    textSize = 18;
   }
 
   void display() {
     fill(rgbB);
     rectMode(CENTER);
-    rect(x, y, w, h, 10);
+    rect(x, y, w, h, 50);
     fill(rgbT);
-    textSize(18);
+    textSize(textSize);
     text(label, x, y);
   }
   
@@ -72,6 +73,14 @@ class Button {
     rgbB = rgb;
   }
 
+  void SetTextSize(int size){
+    textSize = size;
+  }
+  
+  void SetNewLabel(String newLabel){
+    label = newLabel;
+  }
+  
   boolean isMouseOver() {
     return (mouseX > x - w/2 && mouseX < x + w/2 && mouseY > y - h/2 && mouseY < y + h/2);
   }
