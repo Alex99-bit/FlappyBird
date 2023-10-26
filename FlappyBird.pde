@@ -27,7 +27,7 @@ void setup() {
 
 void draw() {
   background(250);
-  if(!menu.inGame){
+  if(menu.inGame){
     player.BirdDraw();
     player.PControl();
     player.GolpeLimits();
@@ -124,6 +124,7 @@ class Bird extends Transform {
     }
   }
   
+  // Colision entre el pajaro y el muro
   void GolpeMuro(Transform wall){
     // Calcula los bordes del objeto
     float left = x;
