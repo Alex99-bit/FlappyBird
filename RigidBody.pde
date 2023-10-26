@@ -2,7 +2,7 @@ class RigidBody {
   float gravity;
   float mass;
   float force;
-  float velocity;
+  float velocityX, velocityY, velocity;
   float position;
 
   RigidBody() {

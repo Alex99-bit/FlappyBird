@@ -27,7 +27,7 @@ void setup() {
 
 void draw() {
   background(250);
-  if(menu.inGame){
+  if(!menu.inGame){
     player.BirdDraw();
     player.PControl();
     player.GolpeLimits();
@@ -40,6 +40,8 @@ void draw() {
         tubos.remove(i);
       }
       
+      // Metodo para determinar la colision con los tubos
+      player.GolpeMuro(tubo);
     }
   
     if (frameCount % 120 == 0) { // Agrega un nuevo tubo cada 2 segundos (60 fotogramas por segundo)
@@ -98,7 +100,7 @@ class Bird extends Transform {
       gravity = salto; // Establece la velocidad vertical en lugar de aplicar una fuerza
       saltando = false;
     }
-    gravity += 0.5; // Gravedad
+    gravity += 0.3; // Gravedad
     y += gravity;
   }
 
@@ -122,8 +124,24 @@ class Bird extends Transform {
     }
   }
   
-  void GolpeMuro(){
+  void GolpeMuro(Transform wall){
+    // Calcula los bordes del objeto
+    float left = x;
+    float right = x + radio/2;
+    float top = y;
+    float bottom = y + radio/2;
   
+    // Calcula los bordes del muro
+    float wallLeft = wall.x;
+    float wallRight = wall.x + wall.scaleX;
+    float wallTop = wall.y;
+    float wallBottom = wall.y + wall.scaleY;
+  
+    // Verifica la colisión
+    if (right > wallLeft && left < wallRight && bottom > wallTop && top < wallBottom) {
+      // Colisión detectada
+      vivo = false;
+    }
   }
 }
 
