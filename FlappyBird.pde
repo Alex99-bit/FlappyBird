@@ -30,7 +30,7 @@ void draw() {
   if(menu.inGame){
     player.BirdDraw();
     player.PControl();
-    player.Golpe();
+    player.GolpeLimits();
   
     for (int i = tubos.size() - 1; i >= 0; i--) {
       Tube tubo = tubos.get(i);
@@ -39,12 +39,19 @@ void draw() {
       if (tubo.IsOffScreen()) {
         tubos.remove(i);
       }
+      
     }
   
     if (frameCount % 120 == 0) { // Agrega un nuevo tubo cada 2 segundos (60 fotogramas por segundo)
       float topHeight = random(100, height - distanciaEntreTubos - 100);
       float bottomHeight = random(100, 300);
       tubos.add(new Tube(width, topHeight, bottomHeight, tuboWidth, tuboSpeed));
+    }
+    
+    if(!player.vivo){
+      menu.inGame = false;
+      player.y = height/4;
+      player.vivo = true;
     }
   }else{
     menu.display();
@@ -95,7 +102,7 @@ class Bird extends Transform {
     y += gravity;
   }
 
-  void Golpe(Transform otro) {
+  void GolpeBalls(Transform otro) {
     float deltaX, deltaY, cuadrado, raiz;
     deltaX = x - otro.x;
     deltaY = y - otro.y;
@@ -108,11 +115,15 @@ class Bird extends Transform {
     }
   }
 
-  void Golpe() {
+  void GolpeLimits() {
     if (y >= height || y <= 0) {
       vivo = false;
       //print("  Valio :c  ");
     }
+  }
+  
+  void GolpeMuro(){
+  
   }
 }
 
