@@ -13,7 +13,7 @@ Bird player = new Bird(50);
 ArrayList<Tube> tubos;
 float tuboWidth = 100;
 float tuboSpeed = 10;
-int distanciaEntreTubos = 50; // Distancia entre tubos en píxeles
+int distanciaEntreTubos = 70; // Distancia entre tubos en píxeles
 
 PImage fondo;
 
@@ -30,6 +30,7 @@ void setup() {
 
 void draw() {
   background(250);
+  frameRate(60);
   if(menu.inGame){
     player.BirdDraw();
     player.PControl();
@@ -47,7 +48,7 @@ void draw() {
       player.GolpeMuro(tubo);
     }
   
-    if (frameCount % (60*0.5) == 0) { // Agrega un nuevo tubo cada 2 segundos (60 fotogramas por segundo)
+    if (frameCount % (60*1) == 0) { // Agrega un nuevo tubo cada 2 segundos (60 fotogramas por segundo)
       topHeight = random(100, 800 - distanciaEntreTubos - 100);
       bottomHeight = random(100, 300);
       tubos.add(new Tube(1280, topHeight, bottomHeight, tuboWidth, tuboSpeed));
