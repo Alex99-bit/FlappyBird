@@ -78,6 +78,7 @@ void mousePressed() {
 class Bird extends Transform {
   int score;
   int colorBird;
+  int vidas;
   float salto = -8;  
   boolean saltando = false, vivo = true;
 
@@ -87,6 +88,7 @@ class Bird extends Transform {
     radio = rad;
     gravity = 0;
     colorBird = #FF0000;
+    vidas = 3;
   }
 
   void BirdDraw() {
@@ -124,6 +126,9 @@ class Bird extends Transform {
     }
   }
   
+  
+  int aaah = 0;
+  
   // Colision entre el pajaro y el muro
   void GolpeMuro(Transform wall){
     // Calcula los bordes del objeto
@@ -132,44 +137,57 @@ class Bird extends Transform {
     float top = y;
     float bottom = y + radio/2;
   
+    float[] wallLeft = new float[2];
+    float[] wallRight = new float[2];
+    float[] wallTop = new float[2];
+    float[] wallBottom = new float[2];
+    
     // Calcula los bordes del muro
-    float wallLeft = wall.x;
-    float wallRight = wall.x + wall.scaleX;
-    float wallTop = wall.y;
-    float wallBottom = wall.y + wall.scaleY;
+    wallLeft[0] = wall.x;
+    wallRight[0] = wall.x + wall.scaleX;
+    wallTop[0] = wall.y;
+    wallBottom[0] = wall.y + wall.topHeight;
   
-    // Verifica la colisión
-    if (right > wallLeft && left < wallRight && bottom > wallTop && top < wallBottom) {
+    // Verifica la colisión con el muro de arriba
+    if (right > wallLeft[0] && left < wallRight[0] && bottom > wallTop[0] && top < wallBottom[0]) {
       // Colisión detectada
-      vivo = false;
+      
+      vidas--;
+      println("Vidas: "+vidas);
+      
+      // Provisional
+      if(vidas <= 0){
+        println(aaah+"Ahhhhh");
+        aaah++;
+      }
+      
     }
   }
 }
 
 
 class Tube extends Transform{
-  float x, topHeight, bottomHeight, _width;
-  float speed;
 
   Tube(float x, float topHeight, float bottomHeight, float _width, float speed) {
     this.x = x;
+    y = 0;
     this.topHeight = topHeight;
     this.bottomHeight = bottomHeight;
-    this._width = _width;
-    this.speed = speed;
+    scaleX = _width;
+    velocity = speed;
   }
 
   void Draw() {
     fill(0, 255, 0); // Color verde para los tubos
-    rect(x, 0, _width, topHeight); // Tubo superior
-    rect(x, height - bottomHeight, _width, bottomHeight); // Tubo inferior
+    rect(x, y, scaleX, topHeight); // Tubo superior
+    rect(x, 800 - bottomHeight, scaleX, bottomHeight); // Tubo inferior
   }
 
   void Update() {
-    x -= speed;
+    x -= velocity;
   }
 
   boolean IsOffScreen() {
-    return x + _width < 0;
+    return x + scaleX < 0;
   }  
 }

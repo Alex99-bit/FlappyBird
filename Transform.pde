@@ -2,9 +2,12 @@ class Transform extends RigidBody{
   float x, y;
   float scaleX, scaleY;
   float radio;
+  
+  // Parametros especiales para los tubos
+  float topHeight = 0, bottomHeight = 0;
 
   Transform() {
-    this(0, 0, 1, 1, 0); // Llama al constructor con argumentos con valores predeterminados
+    this(0, 0, 0, 0, 0); // Llama al constructor con argumentos con valores predeterminados
   }
 
   Transform(float x, float y) {
