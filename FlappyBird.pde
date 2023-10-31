@@ -12,17 +12,20 @@ Bird player = new Bird(50);
 
 ArrayList<Tube> tubos;
 float tuboWidth = 100;
-float tuboSpeed = 5;
-int distanciaEntreTubos = 200; // Distancia entre tubos en píxeles
+float tuboSpeed = 10;
+int distanciaEntreTubos = 50; // Distancia entre tubos en píxeles
 
 PImage fondo;
+
+float topHeight = random(100, 800 - distanciaEntreTubos - 100);
+float bottomHeight = random(100, 300);
 
 void setup() {
   size(1280, 800);
   fondo = loadImage("background.png");
   frameRate(60);
   tubos = new ArrayList<Tube>();
-  tubos.add(new Tube(width, random(100, height - distanciaEntreTubos - 100), random(100, 300), tuboWidth, tuboSpeed));
+  tubos.add(new Tube(1280, topHeight, bottomHeight, tuboWidth, tuboSpeed));
 }
 
 void draw() {
@@ -44,10 +47,10 @@ void draw() {
       player.GolpeMuro(tubo);
     }
   
-    if (frameCount % 120 == 0) { // Agrega un nuevo tubo cada 2 segundos (60 fotogramas por segundo)
-      float topHeight = random(100, height - distanciaEntreTubos - 100);
-      float bottomHeight = random(100, 300);
-      tubos.add(new Tube(width, topHeight, bottomHeight, tuboWidth, tuboSpeed));
+    if (frameCount % (60*0.5) == 0) { // Agrega un nuevo tubo cada 2 segundos (60 fotogramas por segundo)
+      topHeight = random(100, 800 - distanciaEntreTubos - 100);
+      bottomHeight = random(100, 300);
+      tubos.add(new Tube(1280, topHeight, bottomHeight, tuboWidth, tuboSpeed));
     }
     
     if(!player.vivo){
@@ -153,7 +156,7 @@ class Bird extends Transform {
     wallLeft[1] = wall.x;
     wallRight[1] = wall.x + wall.scaleX;
     wallTop[1] = 800 - wall.bottomHeight;
-    wallBottom[1] = wallTop[1] + wall.bottomHeight;
+    wallBottom[1] = wall.bottomHeight;
   
     // Verifica la colisión con el muro de arriba
     if (right > wallLeft[0] && left < wallRight[0] && bottom > wallTop[0] && top < wallBottom[0]) {
