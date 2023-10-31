@@ -88,7 +88,7 @@ class Bird extends Transform {
     radio = rad;
     gravity = 0;
     colorBird = #FF0000;
-    vidas = 3;
+    vidas = 100;
   }
 
   void BirdDraw() {
@@ -135,6 +135,7 @@ class Bird extends Transform {
     float left = x;
     float right = x + radio/2;
     float top = y;
+    top *= 2;
     float bottom = y + radio/2;
   
     float[] wallLeft = new float[2];
@@ -142,25 +143,44 @@ class Bird extends Transform {
     float[] wallTop = new float[2];
     float[] wallBottom = new float[2];
     
-    // Calcula los bordes del muro
+    // Calcula los bordes del muro superior
     wallLeft[0] = wall.x;
     wallRight[0] = wall.x + wall.scaleX;
     wallTop[0] = wall.y;
-    wallBottom[0] = wall.y + wall.topHeight;
+    wallBottom[0] = wallTop[0] + wall.topHeight;
+    
+    // Calcula los bordes del muro inferior
+    wallLeft[1] = wall.x;
+    wallRight[1] = wall.x + wall.scaleX;
+    wallTop[1] = 800 - wall.bottomHeight;
+    wallBottom[1] = wallTop[1] + wall.bottomHeight;
   
     // Verifica la colisión con el muro de arriba
     if (right > wallLeft[0] && left < wallRight[0] && bottom > wallTop[0] && top < wallBottom[0]) {
       // Colisión detectada
       
-      vidas--;
-      println("Vidas: "+vidas);
-      
-      // Provisional
-      if(vidas <= 0){
-        println(aaah+"Ahhhhh");
-        aaah++;
+      if(vivo){
+        vidas--;
       }
+    }
+    
+    // Verifica la colisión con el muro inferior
+    if (right > wallLeft[1] && left < wallRight[1] && bottom > wallTop[1] && top < wallBottom[1]) {
+      // Colisión detectada
       
+      if(vivo){
+        vidas--;
+      }
+    }
+    
+    println("Vidas: "+vidas);
+    
+    // Provisional
+    if(vidas <= 0){
+      println(aaah+"Ahhhhh");
+      aaah++;
+      vivo = false;
+      vidas = 100;
     }
   }
 }
