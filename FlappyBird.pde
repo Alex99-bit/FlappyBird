@@ -15,7 +15,7 @@ float tuboWidth = 100;
 float tuboSpeed = 10;
 int distanciaEntreTubos = 70; // Distancia entre tubos en píxeles
 
-PImage fondo;
+PImage fondo, bg_game, cloud;
 
 float topHeight = random(100, 800 - distanciaEntreTubos - 100);
 float bottomHeight = random(100, 300);
@@ -23,6 +23,8 @@ float bottomHeight = random(100, 300);
 void setup() {
   size(1280, 800);
   fondo = loadImage("background.png");
+  bg_game = loadImage("bg_game.jpg");
+  cloud = loadImage("cloud.png");
   frameRate(60);
   tubos = new ArrayList<Tube>();
   tubos.add(new Tube(1280, topHeight, bottomHeight, tuboWidth, tuboSpeed));
@@ -32,6 +34,9 @@ void draw() {
   background(250);
   frameRate(60);
   if(menu.inGame){
+    
+    // Se muestra un fondo 
+    image(bg_game, -50, -50);
     player.BirdDraw();
     player.PControl();
     player.GolpeLimits();
