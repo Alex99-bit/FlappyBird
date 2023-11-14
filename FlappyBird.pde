@@ -90,6 +90,8 @@ class Bird extends Transform {
   int vidas;
   float salto = -8;  
   boolean saltando = false, vivo = true;
+  
+  UI interfaz = new UI(); 
 
   Bird(float rad) {
     super(100, 800 / 2);
@@ -101,6 +103,11 @@ class Bird extends Transform {
   }
 
   void BirdDraw() {
+    // Aqui se actualiza la vida y se muestra la interfaz
+    interfaz.SetVida(vidas);
+    interfaz.UI_Vida();
+    interfaz.UI_Score();
+    
     fill(colorBird);
     circle(x, y, radio);
     //print(" << "+y+" >>");

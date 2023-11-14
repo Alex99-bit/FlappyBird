@@ -2,16 +2,31 @@
 class UI extends Transform{
   int vida;
   int score;
-  int textX,textY;
+  // Cords para los txt que se muestran
+  int vidaX,vidaY,scoreX,scoreY;
   
   UI(){
-    textX = (int)x;
-    textY = (int)y;
+    x = 0;
+    y = 0;
+    
+    vidaX = (int)x +100;
+    vidaY = (int)y +50;
+    
+    scoreX = (int)x +100;
+    scoreY = (int)y +100;
   }
   
   
   void UI_Vida(){
-    
+    textSize(40);
+    fill(250);
+    text("Vida: "+vida,vidaX,vidaY);
+  }
+  
+  void UI_Score(){
+    textSize(40);
+    fill(250);
+    text("Score: ",scoreX,scoreY);
   }
   
   void SetX(int x){
