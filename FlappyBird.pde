@@ -142,57 +142,51 @@ class Bird extends Transform {
   
   
   // Colision entre el pajaro y el muro
-  void GolpeMuro(Transform wall){
+  void GolpeMuro(Tube tubo){
     // Calcula los bordes del objeto
     float left = x;
     float right = x + radio/2;
     float top = y;
-    top *= 2;
     float bottom = y + radio/2;
   
-    float[] wallLeft = new float[2];
-    float[] wallRight = new float[2];
-    float[] wallTop = new float[2];
-    float[] wallBottom = new float[2];
-    
     // Calcula los bordes del muro superior
-    wallLeft[0] = wall.x;
-    wallRight[0] = wall.x + wall.scaleX;
-    wallTop[0] = wall.y;
-    wallBottom[0] = wallTop[0] + wall.topHeight;
-    
+    float wallLeftTop = tubo.x;
+    float wallRightTop = tubo.x + tubo.scaleX;
+    float wallTopTop = tubo.y;
+    float wallBottomTop = tubo.topHeight;
+  
     // Calcula los bordes del muro inferior
-    wallLeft[1] = wall.x;
-    wallRight[1] = wall.x + wall.scaleX;
-    wallTop[1] = 800 - wall.bottomHeight;
-    wallBottom[1] = wall.bottomHeight;
+    float wallLeftBottom = tubo.x;
+    float wallRightBottom = tubo.x + tubo.scaleX;
+    float wallTopBottom = 800 - tubo.bottomHeight;
+    float wallBottomBottom = 800;
   
     // Verifica la colisión con el muro de arriba
-    if (right > wallLeft[0] && left < wallRight[0] && bottom > wallTop[0] && top < wallBottom[0]) {
+    if (right > wallLeftTop && left < wallRightTop && bottom > wallTopTop && top < wallBottomTop) {
       // Colisión detectada
-      
       if(vivo){
         vidas--;
       }
     }
-    
+  
     // Verifica la colisión con el muro inferior
-    if (right > wallLeft[1] && left < wallRight[1] && bottom > wallTop[1] && top < wallBottom[1]) {
+    if (right > wallLeftBottom && left < wallRightBottom && bottom > wallTopBottom && top < wallBottomBottom) {
       // Colisión detectada
-      
       if(vivo){
         vidas--;
       }
     }
-    
+  
     println("Vidas: "+vidas);
-    
+  
     // Provisional
     if(vidas <= 0){
       vivo = false;
       vidas = 100;
     }
   }
+
+
 }
 
 
