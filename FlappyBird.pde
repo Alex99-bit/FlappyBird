@@ -3,8 +3,6 @@
   Este es el codigo main para el juego flappy bird
 
 */
-
-
 Menu menu = new Menu();
 
 Bird player = new Bird(50);
@@ -143,8 +141,6 @@ class Bird extends Transform {
   }
   
   
-  int aaah = 0;
-  
   // Colision entre el pajaro y el muro
   void GolpeMuro(Transform wall){
     // Calcula los bordes del objeto
@@ -193,8 +189,6 @@ class Bird extends Transform {
     
     // Provisional
     if(vidas <= 0){
-      println(aaah+"Ahhhhh");
-      aaah++;
       vivo = false;
       vidas = 100;
     }
