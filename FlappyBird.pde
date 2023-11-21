@@ -145,9 +145,9 @@ class Bird extends Transform {
   void GolpeMuro(Tube tubo){
     // Calcula los bordes del objeto
     float left = x;
-    float right = x + radio/2;
+    float right = x + radio*2;
     float top = y;
-    float bottom = y + radio/2;
+    float bottom = y + radio*2;
   
     // Calcula los bordes del muro superior
     float wallLeftTop = tubo.x;
