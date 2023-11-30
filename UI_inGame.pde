@@ -20,13 +20,13 @@ class UI extends Transform{
   void UI_Vida(){
     textSize(40);
     fill(250);
-    text("Vida: "+vida,vidaX,vidaY);
+    text("Vida: "+vida+"%",vidaX,vidaY);
   }
   
   void UI_Score(){
     textSize(40);
     fill(250);
-    text("Score: ",scoreX,scoreY);
+    text("Score: "+score,scoreX,scoreY);
   }
   
   void SetX(int x){

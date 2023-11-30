@@ -23,6 +23,7 @@ class Menu {
       textAlign(CENTER, CENTER);
       startButton.display();
       exitButton.display();
+      interfaz.UI_Score();
     } /*else {
       background(0);
       fill(255);

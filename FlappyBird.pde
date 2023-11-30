@@ -4,7 +4,7 @@
 
 */
 Menu menu = new Menu();
-
+UI interfaz = new UI();
 Bird player = new Bird(50);
 //Tube tubo = new Tube(1280,800/2,0,100,10);
 
@@ -88,9 +88,7 @@ class Bird extends Transform {
   int colorBird;
   int vidas;
   float salto = -8;  
-  boolean saltando = false, vivo = true;
-  
-  UI interfaz = new UI(); 
+  boolean saltando = false, vivo = true; 
 
   Bird(float rad) {
     super(100, 800 / 2);
@@ -98,7 +96,8 @@ class Bird extends Transform {
     radio = rad;
     gravity = 0;
     colorBird = #FF0000;
-    vidas = 100;
+    vidas = 150;
+    score = 0;
   }
 
   void BirdDraw() {
@@ -151,9 +150,9 @@ class Bird extends Transform {
   void GolpeMuro(Tube tubo){
     // Calcula los bordes del objeto
     float left = x;
-    float right = x + radio*2;
+    float right = x + radio/2;
     float top = y;
-    float bottom = y + radio*2;
+    float bottom = y + radio/2;
   
     // Calcula los bordes del muro superior
     float wallLeftTop = tubo.x;
