@@ -111,7 +111,9 @@ class Bird extends Transform {
     fill(colorBird);
     circle(x, y, radio);
     //print(" << "+y+" >>");
-    image(img, x, y, radio, radio);  // Dibuja la imagen en la posición del pájaro
+    image(bird, x-50, y-50, radio+70, radio+35);  // Dibuja la imagen en la posición del pájaro
+    
+    println("Score: "+score);
   }
 
   void PControl() {
