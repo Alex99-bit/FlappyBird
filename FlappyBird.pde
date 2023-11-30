@@ -13,7 +13,7 @@ float tuboWidth = 100;
 float tuboSpeed = 10;
 int distanciaEntreTubos = 70; // Distancia entre tubos en píxeles
 
-PImage fondo, bg_game, cloud;
+PImage fondo, bg_game, cloud, bird;
 
 float topHeight = random(100, 800 - distanciaEntreTubos - 100);
 float bottomHeight = random(100, 300);
@@ -23,6 +23,7 @@ void setup() {
   fondo = loadImage("background.png");
   bg_game = loadImage("bg_game.jpg");
   cloud = loadImage("cloud.png");
+  bird = loadImage("bird.png");
   frameRate(60);
   tubos = new ArrayList<Tube>();
   tubos.add(new Tube(1280, topHeight, bottomHeight, tuboWidth, tuboSpeed));
@@ -104,15 +105,18 @@ class Bird extends Transform {
     // Aqui se actualiza la vida y se muestra la interfaz
     interfaz.SetVida(vidas);
     interfaz.UI_Vida();
+    interfaz.SetScore(score); // Actualiza el score en la interfaz
     interfaz.UI_Score();
     
     fill(colorBird);
     circle(x, y, radio);
     //print(" << "+y+" >>");
+    image(img, x, y, radio, radio);  // Dibuja la imagen en la posición del pájaro
   }
 
   void PControl() {
     if (saltando) {
+      score++; // Incrementa el score cada vez que el pájaro salta
       gravity = salto; // Establece la velocidad vertical en lugar de aplicar una fuerza
       saltando = false;
     }
